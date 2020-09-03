@@ -14,12 +14,12 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(CoinViewModel::class)
-    abstract fun bindLegoSetsViewModel(viewModel: CoinViewModel): ViewModel
+    abstract fun bindCoinViewModel(viewModel: CoinViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(CoinListViewModel::class)
-    abstract fun bindLegoSetViewModel(viewModel: CoinListViewModel): ViewModel
+    abstract fun bindCoinListViewModel(viewModel: CoinListViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

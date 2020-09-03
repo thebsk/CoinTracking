@@ -14,7 +14,7 @@ class CoinRepository @Inject constructor(
     private val dao: CoinDao,
     private val coinRemoteDataSource: CoinRemoteDataSource
 ) {
-    fun observeCoin(scope: CoroutineScope, connectivityAvailable: Boolean, id: String) =
+    fun observeCoin(scope: CoroutineScope, id: String) =
         resultLiveData(
             scope = scope,
             databaseQuery = { dao.getCoin(id) },

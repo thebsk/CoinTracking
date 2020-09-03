@@ -1,7 +1,7 @@
 package com.bsk.cointracker.di
 
 import android.app.Application
-import com.bsk.cointracker.api.CryptoService
+import com.bsk.cointracker.api.CoinService
 import com.bsk.cointracker.coinlist.data.CoinRemoteDataSource
 import com.bsk.cointracker.data.AppDatabase
 import dagger.Module
@@ -21,12 +21,12 @@ class AppModule {
     fun provideCoinService(
         @CryptoAPI okHttpClient: OkHttpClient,
         converterFactory: GsonConverterFactory
-    ) = provideService(okHttpClient, converterFactory, CryptoService::class.java)
+    ) = provideService(okHttpClient, converterFactory, CoinService::class.java)
 
     @Singleton
     @Provides
-    fun provideCoinRemoteDataSource(cryptoService: CryptoService) =
-        CoinRemoteDataSource(cryptoService)
+    fun provideCoinRemoteDataSource(coinService: CoinService) =
+        CoinRemoteDataSource(coinService)
 
     @CryptoAPI
     @Provides
@@ -53,7 +53,7 @@ class AppModule {
         converterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(CryptoService.ENDPOINT)
+            .baseUrl(CoinService.ENDPOINT)
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .build()

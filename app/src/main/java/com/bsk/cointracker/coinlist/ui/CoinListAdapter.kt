@@ -24,7 +24,7 @@ class CoinListAdapter : RecyclerView.Adapter<CoinListAdapter.CoinViewHolder>() {
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
         val coin = getItem(position)
         holder.apply {
-            bind(createOnClickListener(coin.name), coin)
+            bind(createOnClickListener(coin.id), coin)
             itemView.tag = coin
         }
     }
