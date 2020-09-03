@@ -5,7 +5,9 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.bsk.coiinttracker.data.Result.Status.ERROR
 import com.bsk.coiinttracker.data.Result.Status.SUCCESS
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * The database serves as the single source of truth.
@@ -16,20 +18,37 @@ import kotlinx.coroutines.Dispatchers
  * [Result.Status.LOADING]
  */
 fun <T, A> resultLiveData(
+    scope: CoroutineScope,
     databaseQuery: () -> LiveData<T>,
     networkCall: suspend () -> Result<A>,
     saveCallResult: suspend (A) -> Unit
 ): LiveData<Result<T>> =
-    liveData(Dispatchers.IO) {
+    liveData(scope.coroutineContext) {
         emit(Result.loading())
-        val source = databaseQuery.invoke().map { Result.success(it) }
-        emitSource(source)
 
-        val responseStatus = networkCall.invoke()
-        if (responseStatus.status == SUCCESS) {
-            saveCallResult(responseStatus.data!!)
-        } else if (responseStatus.status == ERROR) {
-            emit(Result.error(responseStatus.message!!))
+        withContext(Dispatchers.IO) {
+            val source = databaseQuery.invoke().map { Result.success(it) }
+            emitSource(source)
+
+            val responseStatus = networkCall.invoke()
+            if (responseStatus.status == SUCCESS) {
+                saveCallResult(responseStatus.data!!)
+            } else if (responseStatus.status == ERROR) {
+                emit(Result.error(responseStatus.message!!))
+                emitSource(source)
+            }
+        }
+    }
+
+fun <T> resultLiveData(
+    scope: CoroutineScope,
+    databaseQuery: () -> LiveData<T>
+): LiveData<Result<T>> =
+    liveData(scope.coroutineContext) {
+        emit(Result.loading())
+
+        withContext(Dispatchers.IO) {
+            val source = databaseQuery.invoke().map { Result.success(it) }
             emitSource(source)
         }
     }

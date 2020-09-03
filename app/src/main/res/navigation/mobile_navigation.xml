@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_coins">
+
+    <fragment
+        android:id="@+id/navigation_coins"
+        android:name="com.bsk.coiinttracker.coinlist.ui.CoinListFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_coins">
+        <action
+            android:id="@+id/action_navigation_coins_to_legoSetFragment"
+            app:destination="@id/legoSetFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.bsk.coiinttracker.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.bsk.coiinttracker.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/legoSetFragment"
+        android:name="com.bsk.coiinttracker.coinldetail.CoinDetailFragment"
+        android:label="@string/title_coin_detail"
+        tools:layout="@layout/fragment_coin_detail">
+
+        <argument
+            android:name="coinId"
+            app:nullable="false"
+            app:argType="string" />
+    </fragment>
+</navigation>
