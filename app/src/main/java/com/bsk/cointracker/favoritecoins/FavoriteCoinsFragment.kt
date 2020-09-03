@@ -1,22 +1,24 @@
 package com.bsk.cointracker.favoritecoins
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
+import com.bsk.cointracker.databinding.FragmentFavoriteCoinsBinding
+import com.bsk.cointracker.di.Injectable
+import com.bsk.cointracker.di.injectViewModel
 
-class FavoriteCoinsFragment : Fragment() {
+class FavoriteCoinsFragment : BaseFragment(), Injectable {
 
     private lateinit var favoriteCoinsViewModel: FavoriteCoinsViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        return root
-    }
+    override val layoutId: Int
+        get() = R.layout.fragment_favorite_coins
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) =
+        with(binding as FragmentFavoriteCoinsBinding) {
+            super.onViewCreated(view, savedInstanceState)
+
+            favoriteCoinsViewModel = injectViewModel(viewModelFactory)
+        }
 }

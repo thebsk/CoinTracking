@@ -19,7 +19,7 @@
         android:id="@+id/navigation_favorite_coins"
         android:name="com.bsk.cointracker.favoritecoins.FavoriteCoinsFragment"
         android:label="@string/title_favorite_coins"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_favorite_coins" />
 
     <fragment
         android:id="@+id/coinDetailFragment"
