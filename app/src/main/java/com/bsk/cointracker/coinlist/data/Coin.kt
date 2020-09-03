@@ -1,6 +1,7 @@
 package com.bsk.cointracker.coinlist.data
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -14,8 +15,6 @@ data class Coin(
     val symbol: String,
     @field:SerializedName("name")
     val name: String,
-    @field:SerializedName("price_change_percentage_24h")
-    val priceChangePercentage24H: String? = null,
     @field:SerializedName("description")
     val description: Map<String, String>? = null,
     @field:SerializedName("image")
@@ -24,9 +23,20 @@ data class Coin(
     val marketData: MarketData? = null
 ) {
     override fun toString(): String = name
+
+    @Ignore
+    val largeImage = image?.get("large") ?: ""
+
+    @Ignore
+    val price = marketData?.currentPrice?.get("try") ?: ""
+
+    @Ignore
+    val desc = description?.get("tr") ?: ""
 }
 
 data class MarketData(
     @field:SerializedName("current_price")
-    val currentPrice: Map<String, String>? = null
+    val currentPrice: Map<String, String>? = null,
+    @field:SerializedName("price_change_percentage_24h")
+    val priceChangePercentage24H: String? = null
 ) : Serializable

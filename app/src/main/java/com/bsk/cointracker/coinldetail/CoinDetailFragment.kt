@@ -1,8 +1,11 @@
 package com.bsk.cointracker.coinldetail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bsk.cointracker.BaseFragment
@@ -40,12 +43,17 @@ class CoinDetailFragment : BaseFragment(), Injectable {
             setHasOptionsMenu(true)
         }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_favorite, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-//            R.id.action_share -> {
-//                intentShareText(activity!!, getString(R.string.share_lego_set, set.name, set.url ?: ""))
-//                return true
-//            }
+            R.id.action_favorite -> {
+                Toast.makeText(requireContext(), "asda", Toast.LENGTH_SHORT).show()
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -55,7 +63,8 @@ class CoinDetailFragment : BaseFragment(), Injectable {
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     progressBar.hide()
-                    result.data?.let { bindView(binding, it) }
+                    binding.coin = result.data
+                    result.data?.let { bindView(it) }
                 }
                 Result.Status.LOADING -> progressBar.show()
                 Result.Status.ERROR -> {
@@ -66,14 +75,9 @@ class CoinDetailFragment : BaseFragment(), Injectable {
         })
     }
 
-    private fun bindView(binding: FragmentCoinDetailBinding, coin: Coin) {
+    private fun bindView(coin: Coin) {
         coin.apply {
             setTitle(name)
-//            bindImageFromUrl(binding.image, imageUrl)
-//            binding.name.text = name
-//            binding.year.text = getString(R.string.year, year ?: 0)
-//            binding.numParts.text = getString(R.string.number_of_parts, numParts ?: 0)
-//            set = coin
         }
     }
 }

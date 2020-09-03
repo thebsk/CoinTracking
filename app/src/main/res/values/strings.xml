@@ -4,4 +4,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_favorite_coins">Favorite Coins</string>
     <string name="title_coin_detail">Coin Detail</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="desc_coin_image">Coin Image</string>
 </resources>
