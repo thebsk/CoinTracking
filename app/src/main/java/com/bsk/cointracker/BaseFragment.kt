@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bsk.cointracker.databinding.FragmentCoinsBinding
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
@@ -27,7 +26,7 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentCoinsBinding>(
+        binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater, layoutId, container, false
         ).apply {
             lifecycleOwner = this@BaseFragment
