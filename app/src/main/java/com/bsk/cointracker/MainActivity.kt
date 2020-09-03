@@ -30,11 +30,10 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_coins, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_coins, R.id.navigation_favorite_coins
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

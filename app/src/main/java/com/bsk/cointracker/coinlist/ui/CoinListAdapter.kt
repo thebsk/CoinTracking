@@ -43,7 +43,7 @@ class CoinListAdapter : RecyclerView.Adapter<CoinListAdapter.CoinViewHolder>() {
 
     private fun createOnClickListener(id: String): View.OnClickListener {
         return View.OnClickListener {
-            CoinListFragmentDirections.actionNavigationCoinsToLegoSetFragment(id).run {
+            CoinListFragmentDirections.actionNavigationCoinsToCoinDetailFragment(id).run {
                 it.findNavController().navigate(this)
             }
         }

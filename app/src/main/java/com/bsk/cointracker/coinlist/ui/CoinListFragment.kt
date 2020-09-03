@@ -2,13 +2,24 @@ package com.bsk.cointracker.coinlist.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
 import com.bsk.cointracker.coinlist.data.Coin
+import com.bsk.cointracker.data.Result
 import com.bsk.cointracker.databinding.FragmentCoinsBinding
 import com.bsk.cointracker.di.Injectable
+import com.bsk.cointracker.di.injectViewModel
+import com.bsk.cointracker.util.hide
+import com.bsk.cointracker.util.onTextChangedFlow
+import com.bsk.cointracker.util.show
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.launch
 
 /**
  * A fragment representing a single Coin List screen.
@@ -39,7 +50,7 @@ class CoinListFragment : BaseFragment(), Injectable {
                 searchView.onTextChangedFlow()
                     .debounce(400)
                     .collect {
-                        it.let {
+                        it?.let {
                             subscribeSearchUI(binding = this@with, query = it, adapter = adapter)
                         }
                     }
@@ -55,7 +66,7 @@ class CoinListFragment : BaseFragment(), Injectable {
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     progressBar.hide()
-                    result.data.also { adapter.submitList(it) }
+                    result.data.also { adapter.submitList(it ?: emptyList()) }
                 }
                 Result.Status.LOADING -> progressBar.show()
                 Result.Status.ERROR -> {
@@ -72,7 +83,7 @@ class CoinListFragment : BaseFragment(), Injectable {
                 when (result.status) {
                     Result.Status.SUCCESS -> {
                         progressBar.hide()
-                        result.data.let { adapter.submitList(it) }
+                        result.data.let { adapter.submitList(it ?: emptyList()) }
                     }
                     Result.Status.LOADING -> progressBar.show()
                     Result.Status.ERROR -> {

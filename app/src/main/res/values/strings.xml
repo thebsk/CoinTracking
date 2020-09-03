@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">CoiintTracker</string>
-    <string name="title_home">Home</string>
+    <string name="app_name">CoinTracker</string>
+    <string name="title_coins">All Coins</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_favorite_coins">Favorite Coins</string>
     <string name="title_coin_detail">Coin Detail</string>
 </resources>
