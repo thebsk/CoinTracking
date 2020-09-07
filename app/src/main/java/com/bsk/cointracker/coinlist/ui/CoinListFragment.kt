@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
 import com.bsk.cointracker.coinlist.data.Coin
@@ -42,7 +43,11 @@ class CoinListFragment : BaseFragment(),
 
             viewModel = injectViewModel(viewModelFactory)
 
-            val adapter = CoinListAdapter()
+            val adapter = CoinListAdapter {
+                CoinListFragmentDirections.actionNavigationCoinsToCoinDetailFragment(it.id).run {
+                    findNavController().navigate(this)
+                }
+            }
             recyclerView.adapter = adapter
 
             subscribeUi(this, adapter)

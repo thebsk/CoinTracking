@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="coin"
+            name="item"
             type="com.bsk.cointracker.coinlist.data.Coin" />
     </data>
 
@@ -20,14 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:text="@{coin.name}"
+            android:text="@{item.name}"
             tools:text="Tree House" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{coin.id}"
+            android:text="@{item.id}"
             android:maxLines="1"
             android:ellipsize="end"
             tools:text="Tree House" />
