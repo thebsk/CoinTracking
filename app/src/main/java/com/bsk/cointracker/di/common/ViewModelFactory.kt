@@ -1,4 +1,4 @@
-package com.bsk.cointracker.di
+package com.bsk.cointracker.di.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

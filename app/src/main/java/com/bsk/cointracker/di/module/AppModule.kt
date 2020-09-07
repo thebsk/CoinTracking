@@ -1,9 +1,11 @@
-package com.bsk.cointracker.di
+package com.bsk.cointracker.di.module
 
 import android.app.Application
 import com.bsk.cointracker.api.CoinService
 import com.bsk.cointracker.coinlist.data.CoinRemoteDataSource
 import com.bsk.cointracker.data.AppDatabase
+import com.bsk.cointracker.di.common.CoroutineScopeIO
+import com.bsk.cointracker.di.common.CryptoAPI
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineScope

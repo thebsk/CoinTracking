@@ -2,7 +2,7 @@ package com.bsk.cointracker
 
 import android.app.Activity
 import android.app.Application
-import com.bsk.cointracker.di.AppInjector
+import com.bsk.cointracker.di.common.AppInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject

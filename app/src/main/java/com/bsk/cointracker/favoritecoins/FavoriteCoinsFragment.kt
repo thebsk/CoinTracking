@@ -5,10 +5,11 @@ import android.view.View
 import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
 import com.bsk.cointracker.databinding.FragmentFavoriteCoinsBinding
-import com.bsk.cointracker.di.Injectable
-import com.bsk.cointracker.di.injectViewModel
+import com.bsk.cointracker.di.common.Injectable
+import com.bsk.cointracker.di.common.injectViewModel
 
-class FavoriteCoinsFragment : BaseFragment(), Injectable {
+class FavoriteCoinsFragment : BaseFragment(),
+    Injectable {
 
     private lateinit var favoriteCoinsViewModel: FavoriteCoinsViewModel
 

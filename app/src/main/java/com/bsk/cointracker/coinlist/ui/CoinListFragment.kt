@@ -9,8 +9,8 @@ import com.bsk.cointracker.R
 import com.bsk.cointracker.coinlist.data.Coin
 import com.bsk.cointracker.data.Result
 import com.bsk.cointracker.databinding.FragmentCoinsBinding
-import com.bsk.cointracker.di.Injectable
-import com.bsk.cointracker.di.injectViewModel
+import com.bsk.cointracker.di.common.Injectable
+import com.bsk.cointracker.di.common.injectViewModel
 import com.bsk.cointracker.util.hide
 import com.bsk.cointracker.util.onTextChangedFlow
 import com.bsk.cointracker.util.show
@@ -24,7 +24,8 @@ import kotlinx.coroutines.launch
 /**
  * A fragment representing a single Coin List screen.
  */
-class CoinListFragment : BaseFragment(), Injectable {
+class CoinListFragment : BaseFragment(),
+    Injectable {
 
     private lateinit var viewModel: CoinListViewModel
 

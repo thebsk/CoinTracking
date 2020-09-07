@@ -13,8 +13,8 @@ import com.bsk.cointracker.R
 import com.bsk.cointracker.coinlist.data.Coin
 import com.bsk.cointracker.data.Result
 import com.bsk.cointracker.databinding.FragmentCoinDetailBinding
-import com.bsk.cointracker.di.Injectable
-import com.bsk.cointracker.di.injectViewModel
+import com.bsk.cointracker.di.common.Injectable
+import com.bsk.cointracker.di.common.injectViewModel
 import com.bsk.cointracker.util.hide
 import com.bsk.cointracker.util.setTitle
 import com.bsk.cointracker.util.show
@@ -23,7 +23,8 @@ import com.google.android.material.snackbar.Snackbar
 /**
  * A fragment representing a single Coin Detail screen.
  */
-class CoinDetailFragment : BaseFragment(), Injectable {
+class CoinDetailFragment : BaseFragment(),
+    Injectable {
 
     private lateinit var viewModel: CoinViewModel
 

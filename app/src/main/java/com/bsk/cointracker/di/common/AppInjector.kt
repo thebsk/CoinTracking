@@ -1,4 +1,4 @@
-package com.bsk.cointracker.di
+package com.bsk.cointracker.di.common
 
 import android.app.Activity
 import android.app.Application
@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.bsk.cointracker.App
+import com.bsk.cointracker.di.DaggerAppComponent
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
@@ -22,7 +23,9 @@ object AppInjector {
         application
             .registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                    handleActivity(activity)
+                    handleActivity(
+                        activity
+                    )
                 }
 
                 override fun onActivityStarted(activity: Activity) {

@@ -1,4 +1,4 @@
-package com.bsk.cointracker.di
+package com.bsk.cointracker.di.module
 
 
 import com.bsk.cointracker.coinldetail.CoinDetailFragment

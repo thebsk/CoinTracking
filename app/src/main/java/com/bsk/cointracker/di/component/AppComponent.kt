@@ -1,7 +1,9 @@
-package com.bsk.cointracker.di
+package com.bsk.cointracker.di.component
 
 import android.app.Application
 import com.bsk.cointracker.App
+import com.bsk.cointracker.di.module.AppModule
+import com.bsk.cointracker.di.module.MainActivityModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
