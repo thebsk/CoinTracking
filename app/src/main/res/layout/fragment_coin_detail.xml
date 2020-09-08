@@ -24,7 +24,7 @@
             android:contentDescription="@string/desc_coin_image"
             android:padding="16dp"
             android:scaleType="centerInside"
-            app:glideSrc="@{coin.largeImage}"
+            app:imageUrl="@{coin.largeImage}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.2"
             app:layout_constraintStart_toStartOf="parent"

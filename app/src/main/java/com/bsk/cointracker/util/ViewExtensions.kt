@@ -1,16 +1,12 @@
 package com.bsk.cointracker.util
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -59,37 +55,4 @@ fun ImageView.loadWithGlide(url: String) {
             .into(this)
         return
     }
-}
-
-@BindingAdapter(
-    "glideSrc",
-    "glideCenterCrop",
-    "glideCircularCrop",
-    requireAll = false
-)
-fun ImageView.bindGlideSrc(
-    url: String?,
-    centerCrop: Boolean = false,
-    circularCrop: Boolean = false
-) {
-    if (url == null) return
-
-    createGlideRequest(
-        context,
-        url,
-        centerCrop,
-        circularCrop
-    ).into(this)
-}
-
-private fun createGlideRequest(
-    context: Context,
-    url: String,
-    centerCrop: Boolean,
-    circularCrop: Boolean
-): RequestBuilder<Drawable> {
-    val req = Glide.with(context).load(url)
-    if (centerCrop) req.centerCrop()
-    if (circularCrop) req.circleCrop()
-    return req
 }
