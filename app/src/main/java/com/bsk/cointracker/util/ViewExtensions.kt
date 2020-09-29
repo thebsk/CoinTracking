@@ -3,16 +3,10 @@ package com.bsk.cointracker.util
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-
-fun Fragment.setTitle(title: String) {
-    (activity as AppCompatActivity).supportActionBar!!.title = title
-}
 
 fun ProgressBar.hide() {
     visibility = View.GONE

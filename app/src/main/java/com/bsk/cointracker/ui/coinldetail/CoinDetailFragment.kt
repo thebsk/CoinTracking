@@ -13,7 +13,6 @@ import com.bsk.cointracker.data.remote.common.ApiResult
 import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.databinding.FragmentCoinDetailBinding
 import com.bsk.cointracker.util.hide
-import com.bsk.cointracker.util.setTitle
 import com.bsk.cointracker.util.show
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +70,6 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
 
     private fun bindView(coin: Coin) {
         coin.apply {
-            setTitle(name)
         }
     }
 }
