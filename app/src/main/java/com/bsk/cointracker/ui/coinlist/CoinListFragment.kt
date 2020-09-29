@@ -9,7 +9,7 @@ import com.bsk.cointracker.R
 import com.bsk.cointracker.data.remote.common.ApiResult
 import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.databinding.FragmentCoinsBinding
-import com.bsk.cointracker.ui.adapters.CoinListAdapter
+import com.bsk.cointracker.ui.adapters.CoinListAdapterSingleItem
 import com.bsk.cointracker.util.hide
 import com.bsk.cointracker.util.onTextChangedFlow
 import com.bsk.cointracker.util.show
@@ -35,7 +35,7 @@ class CoinListFragment : BaseFragment<FragmentCoinsBinding>() {
     @ExperimentalCoroutinesApi
     @FlowPreview
     override fun onViewBind(binding: FragmentCoinsBinding): Unit = with(binding) {
-        val adapter = CoinListAdapter {
+        val adapter = CoinListAdapterSingleItem {
             CoinListFragmentDirections.actionNavigationCoinsToCoinDetailFragment(
                 it.id
             ).run {
@@ -60,7 +60,7 @@ class CoinListFragment : BaseFragment<FragmentCoinsBinding>() {
     private fun subscribeSearchUI(
         binding: FragmentCoinsBinding,
         query: String,
-        adapter: CoinListAdapter
+        adapter: CoinListAdapterSingleItem
     ) = with(binding) {
         viewModel.searchCoins(query).observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
@@ -77,7 +77,7 @@ class CoinListFragment : BaseFragment<FragmentCoinsBinding>() {
         })
     }
 
-    private fun subscribeUi(binding: FragmentCoinsBinding, adapter: CoinListAdapter) =
+    private fun subscribeUi(binding: FragmentCoinsBinding, adapter: CoinListAdapterSingleItem) =
         with(binding) {
             viewModel.coins.observe(viewLifecycleOwner, Observer { result ->
                 when (result.status) {

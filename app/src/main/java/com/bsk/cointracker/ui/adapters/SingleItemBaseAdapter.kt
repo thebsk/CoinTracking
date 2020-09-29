@@ -7,7 +7,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 
-abstract class BaseAdapter<T>(private val itemClickListener: ((T) -> Unit)? = null) :
+abstract class SingleItemBaseAdapter<T>(private val itemClickListener: ((T) -> Unit)? = null) :
     RecyclerView.Adapter<ItemViewHolder<T>>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<T> {

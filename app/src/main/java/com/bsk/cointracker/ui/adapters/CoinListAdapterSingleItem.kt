@@ -4,7 +4,8 @@ import com.bsk.cointracker.R
 import com.bsk.cointracker.data.remote.entities.Coin
 
 
-class CoinListAdapter(coinClickListener: (Coin) -> Unit) : BaseAdapter<Coin>(coinClickListener) {
+class CoinListAdapterSingleItem(coinClickListener: (Coin) -> Unit) :
+    SingleItemBaseAdapter<Coin>(coinClickListener) {
 
     private var coins = ArrayList<Coin>()
 
