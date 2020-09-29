@@ -6,4 +6,5 @@
     <string name="title_coin_detail">Coin Detail</string>
     <string name="title_favorite">Favorite</string>
     <string name="desc_coin_image">Coin Image</string>
+    <string name="desc_back_image">Back button</string>
 </resources>
