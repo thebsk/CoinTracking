@@ -1,8 +1,8 @@
-package com.bsk.cointracker.coinldetail
+package com.bsk.cointracker.ui.coinldetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bsk.cointracker.coinlist.data.CoinRepository
+import com.bsk.cointracker.data.remote.repository.CoinRepository
 import javax.inject.Inject
 
 /**

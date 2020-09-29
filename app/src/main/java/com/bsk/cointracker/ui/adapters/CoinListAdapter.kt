@@ -1,9 +1,8 @@
-package com.bsk.cointracker.coinlist.ui
+package com.bsk.cointracker.ui.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bsk.cointracker.R
-import com.bsk.cointracker.coinlist.data.Coin
-import com.bsk.cointracker.ui.BaseAdapter
+import com.bsk.cointracker.data.remote.entities.Coin
 
 /**
  * Adapter for the [RecyclerView] in [CoinListFragment].

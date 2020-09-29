@@ -2,10 +2,10 @@ package com.bsk.cointracker.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bsk.cointracker.coinldetail.CoinViewModel
-import com.bsk.cointracker.coinlist.ui.CoinListViewModel
 import com.bsk.cointracker.di.common.ViewModelFactory
 import com.bsk.cointracker.di.common.ViewModelKey
+import com.bsk.cointracker.ui.coinldetail.CoinViewModel
+import com.bsk.cointracker.ui.coinlist.CoinListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

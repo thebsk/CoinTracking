@@ -1,4 +1,4 @@
-package com.bsk.cointracker.api
+package com.bsk.cointracker.data.remote.entities
 
 import com.google.gson.annotations.SerializedName
 

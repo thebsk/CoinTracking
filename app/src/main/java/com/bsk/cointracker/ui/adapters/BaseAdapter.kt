@@ -1,4 +1,4 @@
-package com.bsk.cointracker.ui
+package com.bsk.cointracker.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

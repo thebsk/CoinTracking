@@ -3,38 +3,32 @@ package com.bsk.cointracker.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.bsk.cointracker.data.Result.Status.ERROR
-import com.bsk.cointracker.data.Result.Status.SUCCESS
+import com.bsk.cointracker.data.remote.common.ApiResult
+import com.bsk.cointracker.data.remote.common.ApiResult.Status.ERROR
+import com.bsk.cointracker.data.remote.common.ApiResult.Status.SUCCESS
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-/**
- * The database serves as the single source of truth.
- * Therefore UI can receive data updates from database only.
- * Function notify UI about:
- * [Result.Status.SUCCESS] - with data from database
- * [Result.Status.ERROR] - if error has occurred from any source
- * [Result.Status.LOADING]
- */
+
 fun <T, A> resultLiveData(
     scope: CoroutineScope,
     databaseQuery: () -> LiveData<T>,
-    networkCall: suspend () -> Result<A>,
+    networkCall: suspend () -> ApiResult<A>,
     saveCallResult: suspend (A) -> Unit
-): LiveData<Result<T>> =
+): LiveData<ApiResult<T>> =
     liveData(scope.coroutineContext) {
-        emit(Result.loading())
+        emit(ApiResult.loading())
 
         withContext(Dispatchers.IO) {
-            val source = databaseQuery.invoke().map { Result.success(it) }
+            val source = databaseQuery.invoke().map { ApiResult.success(it) }
             emitSource(source)
 
             val responseStatus = networkCall.invoke()
             if (responseStatus.status == SUCCESS) {
                 saveCallResult(responseStatus.data!!)
             } else if (responseStatus.status == ERROR) {
-                emit(Result.error(responseStatus.message!!))
+                emit(ApiResult.error(responseStatus.message!!))
                 emitSource(source)
             }
         }
@@ -43,12 +37,12 @@ fun <T, A> resultLiveData(
 fun <T> resultLiveData(
     scope: CoroutineScope,
     databaseQuery: () -> LiveData<T>
-): LiveData<Result<T>> =
+): LiveData<ApiResult<T>> =
     liveData(scope.coroutineContext) {
-        emit(Result.loading())
+        emit(ApiResult.loading())
 
         withContext(Dispatchers.IO) {
-            val source = databaseQuery.invoke().map { Result.success(it) }
+            val source = databaseQuery.invoke().map { ApiResult.success(it) }
             emitSource(source)
         }
     }

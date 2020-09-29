@@ -1,6 +1,7 @@
-package com.bsk.cointracker.coinlist.data
+package com.bsk.cointracker.data.remote.repository
 
 import androidx.lifecycle.distinctUntilChanged
+import com.bsk.cointracker.data.local.CoinDao
 import com.bsk.cointracker.data.resultLiveData
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
@@ -40,9 +41,14 @@ class CoinRepository @Inject constructor(
         private var instance: CoinRepository? = null
 
         fun getInstance(dao: CoinDao, coinRemoteDataSource: CoinRemoteDataSource) =
-            instance ?: synchronized(this) {
-                instance
-                    ?: CoinRepository(dao, coinRemoteDataSource).also { instance = it }
-            }
+            instance
+                ?: synchronized(this) {
+                    instance
+                        ?: CoinRepository(
+                            dao,
+                            coinRemoteDataSource
+                        )
+                            .also { instance = it }
+                }
     }
 }

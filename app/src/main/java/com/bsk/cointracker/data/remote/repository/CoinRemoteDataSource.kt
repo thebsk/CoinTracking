@@ -1,7 +1,7 @@
-package com.bsk.cointracker.coinlist.data
+package com.bsk.cointracker.data.remote.repository
 
-import com.bsk.cointracker.api.BaseDataSource
-import com.bsk.cointracker.api.CoinService
+import com.bsk.cointracker.data.remote.BaseDataSource
+import com.bsk.cointracker.data.remote.CoinService
 import javax.inject.Inject
 
 /**

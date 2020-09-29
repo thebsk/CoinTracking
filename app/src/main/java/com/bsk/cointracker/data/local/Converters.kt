@@ -1,7 +1,7 @@
-package com.bsk.cointracker.data
+package com.bsk.cointracker.data.local
 
 import androidx.room.TypeConverter
-import com.bsk.cointracker.coinlist.data.MarketData
+import com.bsk.cointracker.data.remote.entities.MarketData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

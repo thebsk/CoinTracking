@@ -1,4 +1,4 @@
-package com.bsk.cointracker.coinlist.data
+package com.bsk.cointracker.data.remote.entities
 
 import androidx.room.Entity
 import androidx.room.Ignore

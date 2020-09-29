@@ -1,13 +1,11 @@
-package com.bsk.cointracker.api
+package com.bsk.cointracker.data.remote
 
-import com.bsk.cointracker.coinlist.data.Coin
+import com.bsk.cointracker.data.remote.entities.Coin
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-/**
- * Lego REST API access points
- */
+
 interface CoinService {
 
     companion object {

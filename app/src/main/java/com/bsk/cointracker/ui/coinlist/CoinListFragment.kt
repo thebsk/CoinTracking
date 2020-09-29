@@ -1,4 +1,4 @@
-package com.bsk.cointracker.coinlist.ui
+package com.bsk.cointracker.ui.coinlist
 
 import android.os.Bundle
 import android.view.View
@@ -7,11 +7,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
-import com.bsk.cointracker.coinlist.data.Coin
-import com.bsk.cointracker.data.Result
+import com.bsk.cointracker.data.remote.common.ApiResult
+import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.databinding.FragmentCoinsBinding
 import com.bsk.cointracker.di.common.Injectable
 import com.bsk.cointracker.di.common.injectViewModel
+import com.bsk.cointracker.ui.adapters.CoinListAdapter
 import com.bsk.cointracker.util.hide
 import com.bsk.cointracker.util.onTextChangedFlow
 import com.bsk.cointracker.util.show
@@ -22,9 +23,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
-/**
- * A fragment representing a single Coin List screen.
- */
+
 class CoinListFragment : BaseFragment(),
     Injectable {
 
@@ -44,7 +43,9 @@ class CoinListFragment : BaseFragment(),
             viewModel = injectViewModel(viewModelFactory)
 
             val adapter = CoinListAdapter {
-                CoinListFragmentDirections.actionNavigationCoinsToCoinDetailFragment(it.id).run {
+                CoinListFragmentDirections.actionNavigationCoinsToCoinDetailFragment(
+                    it.id
+                ).run {
                     findNavController().navigate(this)
                 }
             }
@@ -70,12 +71,12 @@ class CoinListFragment : BaseFragment(),
     ) = with(binding) {
         viewModel.searchCoins(query).observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
-                Result.Status.SUCCESS -> {
+                ApiResult.Status.SUCCESS -> {
                     progressBar.hide()
                     result.data.also { adapter.submitList(it ?: emptyList()) }
                 }
-                Result.Status.LOADING -> progressBar.show()
-                Result.Status.ERROR -> {
+                ApiResult.Status.LOADING -> progressBar.show()
+                ApiResult.Status.ERROR -> {
                     progressBar.hide()
                     Snackbar.make(root, result.message!!, Snackbar.LENGTH_LONG).show()
                 }
@@ -87,12 +88,12 @@ class CoinListFragment : BaseFragment(),
         with(binding) {
             viewModel.coins.observe(viewLifecycleOwner, Observer { result ->
                 when (result.status) {
-                    Result.Status.SUCCESS -> {
+                    ApiResult.Status.SUCCESS -> {
                         progressBar.hide()
                         result.data.let { adapter.submitList(it ?: emptyList()) }
                     }
-                    Result.Status.LOADING -> progressBar.show()
-                    Result.Status.ERROR -> {
+                    ApiResult.Status.LOADING -> progressBar.show()
+                    ApiResult.Status.ERROR -> {
                         progressBar.hide()
                         Snackbar.make(root, result.message!!, Snackbar.LENGTH_LONG).show()
                     }

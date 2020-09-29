@@ -1,4 +1,4 @@
-package com.bsk.cointracker.ui
+package com.bsk.cointracker.ui.adapters
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView

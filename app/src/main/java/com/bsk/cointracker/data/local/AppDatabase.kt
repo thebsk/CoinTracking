@@ -1,12 +1,11 @@
-package com.bsk.cointracker.data
+package com.bsk.cointracker.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.bsk.cointracker.coinlist.data.Coin
-import com.bsk.cointracker.coinlist.data.CoinDao
+import com.bsk.cointracker.data.remote.entities.Coin
 
 /**
  * The Room database for this app
@@ -27,9 +26,14 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase {
-            return instance ?: synchronized(this) {
-                instance ?: buildDatabase(context).also { instance = it }
-            }
+            return instance
+                ?: synchronized(this) {
+                    instance
+                        ?: buildDatabase(
+                            context
+                        )
+                            .also { instance = it }
+                }
         }
 
         // Create and pre-populate the database. See this article for more details:

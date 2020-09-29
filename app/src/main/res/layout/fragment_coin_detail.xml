@@ -9,7 +9,7 @@
 
         <variable
             name="coin"
-            type="com.bsk.cointracker.coinlist.data.Coin" />
+            type="com.bsk.cointracker.data.remote.entities.Coin" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

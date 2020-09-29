@@ -1,4 +1,4 @@
-package com.bsk.cointracker.coinldetail
+package com.bsk.cointracker.ui.coinldetail
 
 import android.os.Bundle
 import android.view.Menu
@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
-import com.bsk.cointracker.coinlist.data.Coin
-import com.bsk.cointracker.data.Result
+import com.bsk.cointracker.data.remote.common.ApiResult
+import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.databinding.FragmentCoinDetailBinding
 import com.bsk.cointracker.di.common.Injectable
 import com.bsk.cointracker.di.common.injectViewModel
@@ -62,13 +62,13 @@ class CoinDetailFragment : BaseFragment(),
     private fun subscribeUi(binding: FragmentCoinDetailBinding) = with(binding) {
         viewModel.coin.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
-                Result.Status.SUCCESS -> {
+                ApiResult.Status.SUCCESS -> {
                     progressBar.hide()
                     binding.coin = result.data
                     result.data?.let { bindView(it) }
                 }
-                Result.Status.LOADING -> progressBar.show()
-                Result.Status.ERROR -> {
+                ApiResult.Status.LOADING -> progressBar.show()
+                ApiResult.Status.ERROR -> {
                     progressBar.hide()
                     Snackbar.make(root, result.message!!, Snackbar.LENGTH_LONG).show()
                 }

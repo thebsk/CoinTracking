@@ -1,10 +1,11 @@
-package com.bsk.cointracker.coinlist.data
+package com.bsk.cointracker.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.bsk.cointracker.data.remote.entities.Coin
 
 /**
  * The Data Access Object for the Coin class.

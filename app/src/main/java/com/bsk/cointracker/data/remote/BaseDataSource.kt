@@ -1,20 +1,18 @@
-package com.bsk.cointracker.api
+package com.bsk.cointracker.data.remote
 
-import com.bsk.cointracker.data.Result
+import com.bsk.cointracker.data.remote.common.ApiResult
 import retrofit2.Response
 import timber.log.Timber
 
-/**
- * Abstract Base Data source class with error handling
- */
+
 abstract class BaseDataSource {
 
-    protected suspend fun <T> getResult(call: suspend () -> Response<T>): Result<T> {
+    protected suspend fun <T> getResult(call: suspend () -> Response<T>): ApiResult<T> {
         try {
             val response = call()
             if (response.isSuccessful) {
                 val body = response.body()
-                if (body != null) return Result.success(body)
+                if (body != null) return ApiResult.success(body)
             }
             return error(" ${response.code()} ${response.message()}")
         } catch (e: Exception) {
@@ -22,9 +20,9 @@ abstract class BaseDataSource {
         }
     }
 
-    private fun <T> error(message: String): Result<T> {
+    private fun <T> error(message: String): ApiResult<T> {
         Timber.e(message)
-        return Result.error("Network call has failed for a following reason: $message")
+        return ApiResult.error("Network call has failed for a following reason: $message")
     }
 }
 
