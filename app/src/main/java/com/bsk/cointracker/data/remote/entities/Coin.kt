@@ -20,7 +20,9 @@ data class Coin(
     @field:SerializedName("image")
     val image: Map<String, String>? = null,
     @field:SerializedName("market_data")
-    val marketData: MarketData? = null
+    val marketData: MarketData? = null,
+    @field:SerializedName("hashing_algorithm")
+    val hashingAlgorithm: String? = null
 ) {
     override fun toString(): String = name
 
