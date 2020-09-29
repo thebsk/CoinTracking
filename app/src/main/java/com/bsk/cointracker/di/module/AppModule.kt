@@ -4,10 +4,12 @@ import android.app.Application
 import com.bsk.cointracker.data.local.AppDatabase
 import com.bsk.cointracker.data.remote.CoinService
 import com.bsk.cointracker.data.remote.repository.CoinRemoteDataSource
-import com.bsk.cointracker.di.common.CoroutineScopeIO
-import com.bsk.cointracker.di.common.CryptoAPI
+import com.bsk.cointracker.di.qualifiers.CoroutineScopeIO
+import com.bsk.cointracker.di.qualifiers.CryptoAPI
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -15,7 +17,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = [ViewModelModule::class, CoreDataModule::class])
+@Module
+@InstallIn(ApplicationComponent::class)
 class AppModule {
 
     @Singleton
@@ -46,7 +49,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideCoinDao(db: AppDatabase) = db.legoSetDao()
+    fun provideCoinDao(db: AppDatabase) = db.coinDao()
 
     @CoroutineScopeIO
     @Provides

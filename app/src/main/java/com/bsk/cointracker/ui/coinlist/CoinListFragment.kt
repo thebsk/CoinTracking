@@ -1,7 +1,6 @@
 package com.bsk.cointracker.ui.coinlist
 
-import android.os.Bundle
-import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -10,13 +9,12 @@ import com.bsk.cointracker.R
 import com.bsk.cointracker.data.remote.common.ApiResult
 import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.databinding.FragmentCoinsBinding
-import com.bsk.cointracker.di.common.Injectable
-import com.bsk.cointracker.di.common.injectViewModel
 import com.bsk.cointracker.ui.adapters.CoinListAdapter
 import com.bsk.cointracker.util.hide
 import com.bsk.cointracker.util.onTextChangedFlow
 import com.bsk.cointracker.util.show
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
@@ -24,10 +22,10 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 
-class CoinListFragment : BaseFragment(),
-    Injectable {
+@AndroidEntryPoint
+class CoinListFragment : BaseFragment<FragmentCoinsBinding>() {
 
-    private lateinit var viewModel: CoinListViewModel
+    private val viewModel: CoinListViewModel by viewModels()
 
     private lateinit var set: Coin
 
@@ -36,33 +34,28 @@ class CoinListFragment : BaseFragment(),
 
     @ExperimentalCoroutinesApi
     @FlowPreview
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit =
-        with(binding as FragmentCoinsBinding) {
-            super.onViewCreated(view, savedInstanceState)
-
-            viewModel = injectViewModel(viewModelFactory)
-
-            val adapter = CoinListAdapter {
-                CoinListFragmentDirections.actionNavigationCoinsToCoinDetailFragment(
-                    it.id
-                ).run {
-                    findNavController().navigate(this)
-                }
-            }
-            recyclerView.adapter = adapter
-
-            subscribeUi(this, adapter)
-
-            lifecycleScope.launch {
-                searchView.onTextChangedFlow()
-                    .debounce(400)
-                    .collect {
-                        it?.let {
-                            subscribeSearchUI(binding = this@with, query = it, adapter = adapter)
-                        }
-                    }
+    override fun onViewBind(binding: FragmentCoinsBinding): Unit = with(binding) {
+        val adapter = CoinListAdapter {
+            CoinListFragmentDirections.actionNavigationCoinsToCoinDetailFragment(
+                it.id
+            ).run {
+                findNavController().navigate(this)
             }
         }
+        recyclerView.adapter = adapter
+
+        subscribeUi(this, adapter)
+
+        lifecycleScope.launch {
+            searchView.onTextChangedFlow()
+                .debounce(400)
+                .collect {
+                    it?.let {
+                        subscribeSearchUI(binding = this@with, query = it, adapter = adapter)
+                    }
+                }
+        }
+    }
 
     private fun subscribeSearchUI(
         binding: FragmentCoinsBinding,

@@ -4,6 +4,8 @@ import com.bsk.cointracker.BuildConfig
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
@@ -11,10 +13,9 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-/**
- * Dagger module to provide core data functionality.
- */
+
 @Module
+@InstallIn(ApplicationComponent::class)
 class CoreDataModule {
 
     @Provides

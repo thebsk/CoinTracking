@@ -5,9 +5,7 @@ import com.bsk.cointracker.data.remote.entities.MarketData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-/**
- * Type converters to allow Room to reference complex data types.
- */
+
 object Converters {
     @TypeConverter
     @JvmStatic

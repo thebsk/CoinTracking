@@ -1,4 +1,4 @@
-package com.bsk.cointracker.di.common
+package com.bsk.cointracker.di.qualifiers
 
 import javax.inject.Qualifier
 

@@ -7,9 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.bsk.cointracker.data.remote.entities.Coin
 
-/**
- * The Data Access Object for the Coin class.
- */
+
 @Dao
 interface CoinDao {
 

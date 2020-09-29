@@ -1,14 +1,10 @@
 package com.bsk.cointracker.util
 
 import android.view.View
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -43,16 +39,5 @@ fun SearchView.onTextChangedFlow(): Flow<String?> {
 
         setOnQueryTextListener(listener)
         awaitClose { setOnQueryTextListener(null) }
-    }
-}
-
-fun ImageView.loadWithGlide(url: String) {
-    url.let {
-        Glide.with(this)
-            .load(it)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .transition(DrawableTransitionOptions().crossFade(300))
-            .into(this)
-        return
     }
 }

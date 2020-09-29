@@ -7,9 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Repository module for handling data operations.
- */
+
 @Singleton
 class CoinRepository @Inject constructor(
     private val dao: CoinDao,
@@ -36,7 +34,6 @@ class CoinRepository @Inject constructor(
     )
 
     companion object {
-        // For Singleton instantiation
         @Volatile
         private var instance: CoinRepository? = null
 

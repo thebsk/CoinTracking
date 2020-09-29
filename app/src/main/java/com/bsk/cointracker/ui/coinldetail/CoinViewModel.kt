@@ -1,14 +1,13 @@
 package com.bsk.cointracker.ui.coinldetail
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bsk.cointracker.data.remote.repository.CoinRepository
-import javax.inject.Inject
 
-/**
- * The ViewModel for [CoinDetailFragment].
- */
-class CoinViewModel @Inject constructor(private val repository: CoinRepository) : ViewModel() {
+
+class CoinViewModel @ViewModelInject constructor(private val repository: CoinRepository) :
+    ViewModel() {
 
     lateinit var coinId: String
 

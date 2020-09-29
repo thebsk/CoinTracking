@@ -4,9 +4,7 @@ import com.bsk.cointracker.data.remote.BaseDataSource
 import com.bsk.cointracker.data.remote.CoinService
 import javax.inject.Inject
 
-/**
- * Works with the Crypto API to get data.
- */
+
 class CoinRemoteDataSource @Inject constructor(private val service: CoinService) :
     BaseDataSource() {
 

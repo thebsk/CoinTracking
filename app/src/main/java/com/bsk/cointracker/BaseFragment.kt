@@ -8,13 +8,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import javax.inject.Inject
 
-abstract class BaseFragment : Fragment() {
-
-    @Inject
-    protected lateinit var viewModelFactory: ViewModelProvider.Factory
+abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     @get:LayoutRes
     abstract val layoutId: Int
@@ -33,4 +28,12 @@ abstract class BaseFragment : Fragment() {
         }
         return binding.root
     }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        onViewBind(binding as T)
+    }
+
+    abstract fun onViewBind(binding: T)
 }
