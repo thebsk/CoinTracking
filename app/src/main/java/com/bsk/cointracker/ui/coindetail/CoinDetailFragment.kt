@@ -1,4 +1,4 @@
-package com.bsk.cointracker.ui.coinldetail
+package com.bsk.cointracker.ui.coindetail
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -26,17 +26,15 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
     override val layoutId: Int
         get() = R.layout.fragment_coin_detail
 
-    override fun onViewBind(binding: FragmentCoinDetailBinding) =
-        with(binding) {
-            viewModel.coinId = args.coinId
+    override fun onViewBind(binding: FragmentCoinDetailBinding) = with(binding) {
+        viewModel.coinId = args.coinId
 
-            imgBack.setOnClickListener {
-                findNavController().navigateUp()
-            }
-
-            subscribeUi(this)
-            setHasOptionsMenu(true)
+        imgBack.setOnClickListener {
+            findNavController().navigateUp()
         }
+
+        subscribeUi(this)
+    }
 
     private fun subscribeUi(binding: FragmentCoinDetailBinding) = with(binding) {
         viewModel.coin.observe(viewLifecycleOwner, Observer { result ->

@@ -19,11 +19,15 @@
         android:id="@+id/navigation_favorite_coins"
         android:name="com.bsk.cointracker.ui.favoritecoins.FavoriteCoinsFragment"
         android:label="@string/title_favorite_coins"
-        tools:layout="@layout/fragment_favorite_coins" />
+        tools:layout="@layout/fragment_favorite_coins">
+        <action
+            android:id="@+id/action_navigation_favorite_coins_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/coinDetailFragment"
-        android:name="com.bsk.cointracker.ui.coinldetail.CoinDetailFragment"
+        android:name="com.bsk.cointracker.ui.coindetail.CoinDetailFragment"
         android:label="@string/title_coin_detail"
         tools:layout="@layout/fragment_coin_detail">
 
