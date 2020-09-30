@@ -7,24 +7,28 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 @Entity(tableName = "coins")
-data class Coin(
+class Coin {
     @PrimaryKey
     @field:SerializedName("id")
-    val id: String,
+    lateinit var id: String
+
     @field:SerializedName("symbol")
-    val symbol: String,
+    var symbol: String? = null
+
     @field:SerializedName("name")
-    val name: String,
+    var name: String? = null
+
     @field:SerializedName("description")
-    val description: Map<String, String>? = null,
+    var description: Map<String, String>? = null
+
     @field:SerializedName("image")
-    val image: Map<String, String>? = null,
+    var image: Map<String, String>? = null
+
     @field:SerializedName("market_data")
-    val marketData: MarketData? = null,
+    var marketData: MarketData? = null
+
     @field:SerializedName("hashing_algorithm")
-    val hashingAlgorithm: String? = null
-) {
-    override fun toString(): String = name
+    var hashingAlgorithm: String? = null
 
     @Ignore
     val largeImage = image?.get("large") ?: ""

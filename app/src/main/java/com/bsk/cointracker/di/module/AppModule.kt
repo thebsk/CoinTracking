@@ -1,11 +1,11 @@
 package com.bsk.cointracker.di.module
 
-import android.app.Application
-import com.bsk.cointracker.data.local.AppDatabase
 import com.bsk.cointracker.data.remote.CoinService
 import com.bsk.cointracker.data.remote.repository.CoinRemoteDataSource
 import com.bsk.cointracker.di.qualifiers.CoroutineScopeIO
 import com.bsk.cointracker.di.qualifiers.CryptoAPI
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,11 +45,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDb(app: Application) = AppDatabase.getInstance(app)
-
-    @Singleton
-    @Provides
-    fun provideCoinDao(db: AppDatabase) = db.coinDao()
+    fun provideFireStore() = Firebase.firestore
 
     @CoroutineScopeIO
     @Provides
