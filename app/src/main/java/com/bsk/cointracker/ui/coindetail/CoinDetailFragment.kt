@@ -1,6 +1,5 @@
 package com.bsk.cointracker.ui.coindetail
 
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -8,7 +7,6 @@ import androidx.navigation.fragment.navArgs
 import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
 import com.bsk.cointracker.data.remote.common.ApiResult
-import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.databinding.FragmentCoinDetailBinding
 import com.bsk.cointracker.util.hide
 import com.bsk.cointracker.util.show
@@ -33,6 +31,18 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
             findNavController().navigateUp()
         }
 
+        imgFavorite.setOnClickListener { v ->
+            isUserAuthenticated {
+                if (it != true) return@isUserAuthenticated
+
+                if (v.isSelected) {
+                    viewModel.removeCoin(coin!!)
+                } else {
+                    viewModel.saveCoin(coin!!)
+                }
+            }
+        }
+
         subscribeUi(this)
     }
 
@@ -42,7 +52,6 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
                 ApiResult.Status.SUCCESS -> {
                     progressBar.hide()
                     binding.coin = result.data
-                    result.data?.let { bindView(it) }
                 }
                 ApiResult.Status.LOADING -> progressBar.show()
                 ApiResult.Status.ERROR -> {
@@ -51,24 +60,14 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
                 }
             }
         })
-        viewModel.coinById(args.coinId).observe(viewLifecycleOwner, Observer {
-            val isFavCharacter = it.isNotEmpty()
-            imgFavorite.apply {
-                isSelected = isFavCharacter
-                imgFavorite.visibility = View.VISIBLE
-                setOnClickListener { v ->
-                    if (v.isSelected) {
-                        viewModel.removeCoin(coin!!)
-                    } else {
-                        viewModel.saveCoin(coin!!)
-                    }
+        isUserAuthenticated {
+            if (it != true) return@isUserAuthenticated
+            viewModel.coinById(args.coinId).observe(viewLifecycleOwner, Observer {
+                val isFavCharacter = it.isNotEmpty()
+                imgFavorite.apply {
+                    isSelected = isFavCharacter
                 }
-            }
-        })
-    }
-
-    private fun bindView(coin: Coin) {
-        coin.apply {
+            })
         }
     }
 }
