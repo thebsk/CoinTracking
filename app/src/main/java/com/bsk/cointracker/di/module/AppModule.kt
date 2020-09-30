@@ -6,6 +6,7 @@ import com.bsk.cointracker.data.remote.CoinService
 import com.bsk.cointracker.data.remote.repository.CoinRemoteDataSource
 import com.bsk.cointracker.di.qualifiers.CoroutineScopeIO
 import com.bsk.cointracker.di.qualifiers.CryptoAPI
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
@@ -29,6 +30,10 @@ class AppModule {
     fun provideActivityManager(@ApplicationContext appContext: Context): ActivityManager {
         return appContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     }
+
+    @Singleton
+    @Provides
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
 
     @Singleton
     @Provides
