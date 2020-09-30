@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "197233160376",
+    "firebase_url": "https://cointracking-bf941.firebaseio.com",
+    "project_id": "cointracking-bf941",
+    "storage_bucket": "cointracking-bf941.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197233160376:android:3833e6c20437738de1844d",
+        "android_client_info": {
+          "package_name": "com.bsk.coiinttracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197233160376-1b7poea357qnmc9f6u9ofo33hk5sfip7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZw1rF0vUa_1YQYjyo2yqacIplvw6SGkE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197233160376-1b7poea357qnmc9f6u9ofo33hk5sfip7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

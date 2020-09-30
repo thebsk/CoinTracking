@@ -27,6 +27,7 @@ buildscript {
         retrofit = '2.9.0'
         roomVersion = '2.2.0-alpha02'
         timberVersion = '4.7.1'
+        fireStoreVersion = '21.6.0'
     }
 
     repositories {
@@ -40,6 +41,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 
