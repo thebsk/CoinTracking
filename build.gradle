@@ -28,6 +28,9 @@ buildscript {
         roomVersion = '2.2.0-alpha02'
         timberVersion = '4.7.1'
         fireStoreVersion = '21.6.0'
+        authVersion = '19.4.0'
+        googleAuthVersion = '18.1.0'
+        coroutinesPlayVersion = '1.1.1'
     }
 
     repositories {

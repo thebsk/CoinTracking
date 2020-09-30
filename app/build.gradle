@@ -55,6 +55,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutinesPlayVersion"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -93,4 +94,8 @@ dependencies {
 
     // FireStore
     implementation "com.google.firebase:firebase-firestore-ktx:$fireStoreVersion"
+
+    // Firebase Auth
+    implementation "com.google.firebase:firebase-auth:$authVersion"
+    implementation "com.google.android.gms:play-services-auth:$googleAuthVersion"
 }
