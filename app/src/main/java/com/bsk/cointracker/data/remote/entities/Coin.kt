@@ -1,6 +1,7 @@
 package com.bsk.cointracker.data.remote.entities
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -28,6 +29,9 @@ class Coin {
 
     @field:SerializedName("hashing_algorithm")
     var hashingAlgorithm: String? = null
+
+    @Ignore
+    var userId: String? = null
 
     val largeImage
         get() = image?.get("large") ?: ""

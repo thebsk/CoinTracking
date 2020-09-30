@@ -4,13 +4,15 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bsk.cointracker.data.remote.entities.Coin
+import com.bsk.cointracker.data.remote.repository.AuthRepository
 import com.bsk.cointracker.data.remote.repository.CoinFireStoreRepository
 import com.bsk.cointracker.data.remote.repository.CoinRepository
 
 
 class CoinViewModel @ViewModelInject constructor(
     repository: CoinRepository,
-    private val fireStoreRepository: CoinFireStoreRepository
+    private val fireStoreRepository: CoinFireStoreRepository,
+    private val authRepository: AuthRepository
 ) : ViewModel() {
 
     lateinit var coinId: String
@@ -19,9 +21,15 @@ class CoinViewModel @ViewModelInject constructor(
         repository.observeCoin(viewModelScope, coinId)
     }
 
-    fun coinById(coinId: String) = fireStoreRepository.getFavoriteCoinById(coinId)
+    fun coinById(coinId: String) =
+        fireStoreRepository.getFavoriteCoinById(coinId, authRepository.user.uid)
 
-    fun saveCoin(coin: Coin) = fireStoreRepository.saveFavoriteCoin(coin)
+    fun saveCoin(coin: Coin) =
+        coin.apply {
+            userId = authRepository.user.uid
+        }.let {
+            fireStoreRepository.saveFavoriteCoin(it)
+        }
 
-    fun removeCoin(coin: Coin) = fireStoreRepository.deleteCoin(coin)
+    fun removeCoin(coin: Coin) = fireStoreRepository.deleteCoin(coin, authRepository.user.uid)
 }
