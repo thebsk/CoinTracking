@@ -1,11 +1,9 @@
 package com.bsk.cointracker.ui.coinldetail
 
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
@@ -32,24 +30,13 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
         with(binding) {
             viewModel.coinId = args.coinId
 
+            imgBack.setOnClickListener {
+                findNavController().navigateUp()
+            }
+
             subscribeUi(this)
             setHasOptionsMenu(true)
         }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_favorite, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_favorite -> {
-                Toast.makeText(requireContext(), "asda", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
     private fun subscribeUi(binding: FragmentCoinDetailBinding) = with(binding) {
         viewModel.coin.observe(viewLifecycleOwner, Observer { result ->
@@ -63,6 +50,20 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
                 ApiResult.Status.ERROR -> {
                     progressBar.hide()
                     Snackbar.make(root, result.message!!, Snackbar.LENGTH_LONG).show()
+                }
+            }
+        })
+        viewModel.coinById(args.coinId).observe(viewLifecycleOwner, Observer {
+            val isFavCharacter = it.isNotEmpty()
+            imgFavorite.apply {
+                isSelected = isFavCharacter
+                imgFavorite.visibility = View.VISIBLE
+                setOnClickListener { v ->
+                    if (v.isSelected) {
+                        viewModel.removeCoin(coin!!)
+                    } else {
+                        viewModel.saveCoin(coin!!)
+                    }
                 }
             }
         })

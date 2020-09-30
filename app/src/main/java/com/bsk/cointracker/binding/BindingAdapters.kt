@@ -2,7 +2,7 @@ package com.bsk.cointracker.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bsk.cointracker.di.module.GlideApp
+import com.bsk.cointracker.util.glide.GlideApp
 
 
 @BindingAdapter(
