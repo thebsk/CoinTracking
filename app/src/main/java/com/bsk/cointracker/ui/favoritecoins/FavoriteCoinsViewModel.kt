@@ -1,15 +1,13 @@
 package com.bsk.cointracker.ui.favoritecoins
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bsk.cointracker.data.remote.repository.CoinFireStoreRepository
 
 
-class FavoriteCoinsViewModel @ViewModelInject constructor() : ViewModel() {
+class FavoriteCoinsViewModel @ViewModelInject constructor(
+    repository: CoinFireStoreRepository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+    val favoriteCoins = repository.getFavoriteCoins()
 }
