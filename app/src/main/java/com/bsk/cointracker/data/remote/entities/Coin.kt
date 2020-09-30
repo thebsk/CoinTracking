@@ -1,7 +1,6 @@
 package com.bsk.cointracker.data.remote.entities
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -30,19 +29,20 @@ class Coin {
     @field:SerializedName("hashing_algorithm")
     var hashingAlgorithm: String? = null
 
-    @Ignore
-    val largeImage = image?.get("large") ?: ""
+    val largeImage
+        get() = image?.get("large") ?: ""
 
-    @Ignore
-    val price = marketData?.currentPrice?.get("try") ?: ""
+    val price
+        get() = marketData?.currentPrice?.get("try") ?: ""
 
-    @Ignore
-    val desc = description?.get("tr") ?: ""
+    val desc
+        get() = description?.get("tr") ?: ""
 }
 
-data class MarketData(
+class MarketData : Serializable {
     @field:SerializedName("current_price")
-    val currentPrice: Map<String, String>? = null,
+    val currentPrice: Map<String, String>? = null
+
     @field:SerializedName("price_change_percentage_24h")
     val priceChangePercentage24H: String? = null
-) : Serializable
+}
