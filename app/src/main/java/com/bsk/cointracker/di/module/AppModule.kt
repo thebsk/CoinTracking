@@ -1,5 +1,7 @@
 package com.bsk.cointracker.di.module
 
+import android.app.ActivityManager
+import android.content.Context
 import com.bsk.cointracker.data.remote.CoinService
 import com.bsk.cointracker.data.remote.repository.CoinRemoteDataSource
 import com.bsk.cointracker.di.qualifiers.CoroutineScopeIO
@@ -10,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -20,6 +23,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 class AppModule {
+
+    @Singleton
+    @Provides
+    fun provideActivityManager(@ApplicationContext appContext: Context): ActivityManager {
+        return appContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    }
 
     @Singleton
     @Provides
