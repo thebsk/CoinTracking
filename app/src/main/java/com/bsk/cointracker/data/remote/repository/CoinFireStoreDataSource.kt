@@ -9,9 +9,10 @@ import javax.inject.Inject
 
 class CoinFireStoreDataSource @Inject constructor(private val firestore: FirebaseFirestore) {
 
-    fun getFavoriteCoins() =
+    fun getFavoriteCoins(userId: String) =
         firestore
             .collection(Constants.KEY_COINS)
+            .whereEqualTo(Constants.KEY_USER_ID, userId)
             .livedata(Coin::class.java)
 
     fun saveFavoriteCoin(coin: Coin) {

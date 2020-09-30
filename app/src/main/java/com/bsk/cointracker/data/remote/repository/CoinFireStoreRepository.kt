@@ -14,8 +14,8 @@ class CoinFireStoreRepository @Inject constructor(
     @CoroutineScopeIO private val coroutineScope: CoroutineScope,
     private val fireStoreDataSource: CoinFireStoreDataSource
 ) {
-    fun getFavoriteCoins() =
-        fireStoreDataSource.getFavoriteCoins()
+    fun getFavoriteCoins(userId: String) =
+        fireStoreDataSource.getFavoriteCoins(userId)
 
     fun getFavoriteCoinById(coinId: String, userId: String) =
         fireStoreDataSource.getFavoriteCoinById(coinId, userId)
