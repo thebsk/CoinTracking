@@ -2,7 +2,7 @@ package com.bsk.cointracker.binding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
+import com.bsk.cointracker.di.module.GlideApp
 
 
 @BindingAdapter(
@@ -19,8 +19,10 @@ fun bindImageFromUrl(
 ) {
     if (url == null) return
 
-    Glide.with(view.context).load(url).apply {
-        if (centerCrop) centerCrop()
-        if (circularCrop) circleCrop()
-    }.into(view)
+    GlideApp.with(view.context)
+        .load(url).apply {
+            if (centerCrop) centerCrop()
+            if (circularCrop) circleCrop()
+        }
+        .into(view)
 }
