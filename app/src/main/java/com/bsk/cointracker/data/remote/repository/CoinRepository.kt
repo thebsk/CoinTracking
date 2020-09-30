@@ -2,6 +2,7 @@ package com.bsk.cointracker.data.remote.repository
 
 import androidx.lifecycle.distinctUntilChanged
 import com.bsk.cointracker.data.local.CoinDao
+import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.data.resultLiveData
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
@@ -11,7 +12,8 @@ import javax.inject.Singleton
 @Singleton
 class CoinRepository @Inject constructor(
     private val dao: CoinDao,
-    private val coinRemoteDataSource: CoinRemoteDataSource
+    private val coinRemoteDataSource: CoinRemoteDataSource,
+    private val fireStoreDataSource: CoinFireStoreDataSource
 ) {
     fun observeCoin(scope: CoroutineScope, id: String) =
         resultLiveData(
@@ -33,19 +35,13 @@ class CoinRepository @Inject constructor(
         databaseQuery = { dao.searchCoin(query) }
     )
 
-    companion object {
-        @Volatile
-        private var instance: CoinRepository? = null
+    fun getFavoriteCoinById(coinId: String) =
+        fireStoreDataSource.getFavoriteCoinById(coinId)
 
-        fun getInstance(dao: CoinDao, coinRemoteDataSource: CoinRemoteDataSource) =
-            instance
-                ?: synchronized(this) {
-                    instance
-                        ?: CoinRepository(
-                            dao,
-                            coinRemoteDataSource
-                        )
-                            .also { instance = it }
-                }
-    }
+    fun saveFavoriteCoin(coin: Coin) =
+        fireStoreDataSource.saveFavoriteCoin(coin)
+
+
+    fun deleteCoin(coin: Coin) =
+        fireStoreDataSource.delete(coin)
 }
