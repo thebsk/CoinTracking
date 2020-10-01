@@ -2,8 +2,8 @@ package com.bsk.cointracker.di.module
 
 import android.app.ActivityManager
 import android.content.Context
+import androidx.work.WorkManager
 import com.bsk.cointracker.data.remote.CoinService
-import com.bsk.cointracker.data.remote.repository.CoinRemoteDataSource
 import com.bsk.cointracker.di.qualifiers.CoroutineScopeIO
 import com.bsk.cointracker.di.qualifiers.CryptoAPI
 import com.google.firebase.auth.FirebaseAuth
@@ -43,13 +43,6 @@ class AppModule {
         converterFactory: GsonConverterFactory
     ) = provideService(okHttpClient, converterFactory, CoinService::class.java)
 
-    @Singleton
-    @Provides
-    fun provideCoinRemoteDataSource(coinService: CoinService) =
-        CoinRemoteDataSource(
-            coinService
-        )
-
     @CryptoAPI
     @Provides
     fun providePrivateOkHttpClient(
@@ -65,6 +58,12 @@ class AppModule {
             .setPersistenceEnabled(false)
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideWorkManager(
+        @ApplicationContext appContext: Context
+    ) = WorkManager.getInstance(appContext)
 
     @CoroutineScopeIO
     @Provides
