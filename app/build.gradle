@@ -72,6 +72,7 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$hiltCompilerVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleVersion"
+    implementation "androidx.hilt:hilt-work:$hiltWorkerVersion"
 
     // Tools
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
@@ -98,4 +99,7 @@ dependencies {
     // Firebase Auth
     implementation "com.google.firebase:firebase-auth:$authVersion"
     implementation "com.google.android.gms:play-services-auth:$googleAuthVersion"
+
+    // Work Manager
+    implementation "androidx.work:work-runtime-ktx:$workManagerVersion"
 }
