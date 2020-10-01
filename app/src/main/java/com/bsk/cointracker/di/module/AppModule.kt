@@ -7,6 +7,7 @@ import com.bsk.cointracker.data.remote.repository.CoinRemoteDataSource
 import com.bsk.cointracker.di.qualifiers.CoroutineScopeIO
 import com.bsk.cointracker.di.qualifiers.CryptoAPI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
@@ -59,7 +60,11 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideFireStore() = Firebase.firestore
+    fun provideFireStore() = Firebase.firestore.apply {
+        firestoreSettings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(false)
+            .build()
+    }
 
     @CoroutineScopeIO
     @Provides
