@@ -4,22 +4,15 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bsk.cointracker.data.remote.repository.AuthRepository
-import com.google.firebase.auth.AuthCredential
 
 
 class AuthViewModel @ViewModelInject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    fun signInWithGoogle(googleAuthCredential: AuthCredential) =
-        authRepository.signInWithGoogle(viewModelScope, googleAuthCredential)
+    fun signInWithGoogle2(idToken: String) =
+        authRepository.signInWithGoogle2(viewModelScope, idToken)
 
-    fun createUser(authenticatedUser: User) =
-        authRepository.createUserIfNotExists(viewModelScope, authenticatedUser)
-
-    fun checkIfUserIsAuthenticated() =
-        authRepository.checkIfUserIsAuthenticated(viewModelScope)
-
-    fun setUid(uid: String) =
-        authRepository.addUserToLiveData(viewModelScope, uid)
+    fun checkIfUserIsAuthenticated2() =
+        authRepository.checkIfUserIsAuthenticated2(viewModelScope)
 }
