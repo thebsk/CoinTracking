@@ -14,8 +14,9 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     @get:LayoutRes
     abstract val layoutId: Int
 
-    protected lateinit var binding: ViewDataBinding
+    protected lateinit var binding: T
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,14 +26,14 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
             inflater, layoutId, container, false
         ).apply {
             lifecycleOwner = this@BaseFragment
-        }
+        } as T
         return binding.root
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onViewBind(binding as T)
+        onViewBind(binding)
     }
 
     abstract fun onViewBind(binding: T)

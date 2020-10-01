@@ -1,6 +1,9 @@
 package com.bsk.cointracker.util
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.SearchView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,5 +36,23 @@ fun SearchView.onTextChangedFlow(): Flow<String?> {
 
         setOnQueryTextListener(listener)
         awaitClose { setOnQueryTextListener(null) }
+    }
+}
+
+@ExperimentalCoroutinesApi
+fun EditText.afterTextChangedFlow(): Flow<Editable?> {
+    return callbackFlow {
+        val watcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                offer(s)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        }
+
+        addTextChangedListener(watcher)
+        awaitClose { removeTextChangedListener(watcher) }
     }
 }

@@ -1,8 +1,10 @@
 package com.bsk.cointracker.ui.coindetail
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bsk.cointracker.data.remote.common.ApiResult
 import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.data.remote.repository.AuthRepository
 import com.bsk.cointracker.data.remote.repository.CoinFireStoreRepository
@@ -10,15 +12,18 @@ import com.bsk.cointracker.data.remote.repository.CoinRepository
 
 
 class CoinViewModel @ViewModelInject constructor(
-    repository: CoinRepository,
+    private val repository: CoinRepository,
     private val fireStoreRepository: CoinFireStoreRepository,
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
     lateinit var coinId: String
+    private lateinit var coin: LiveData<ApiResult<Coin>>
 
-    val coin by lazy {
-        repository.observeCoin(viewModelScope, coinId)
+
+    fun coin(): LiveData<ApiResult<Coin>> {
+        coin = repository.observeCoin(viewModelScope, coinId)
+        return coin
     }
 
     fun coinById(coinId: String) =
