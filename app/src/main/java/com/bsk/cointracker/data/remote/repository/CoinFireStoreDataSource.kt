@@ -18,8 +18,7 @@ class CoinFireStoreDataSource @Inject constructor(private val firestore: Firebas
     fun saveFavoriteCoin(coin: Coin) {
         firestore
             .collection(Constants.KEY_COINS)
-            .document(coin.id)
-            .set(coin)
+            .add(coin)
     }
 
     fun getFavoriteCoinById(coinId: String, userId: String) =
