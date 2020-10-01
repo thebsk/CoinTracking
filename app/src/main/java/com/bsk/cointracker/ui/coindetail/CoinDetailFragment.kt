@@ -5,12 +5,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bsk.cointracker.BaseFragment
 import com.bsk.cointracker.R
 import com.bsk.cointracker.RefreshableFragment
 import com.bsk.cointracker.data.remote.common.ApiResult
 import com.bsk.cointracker.databinding.FragmentCoinDetailBinding
-import com.bsk.cointracker.util.*
+import com.bsk.cointracker.util.afterTextChangedFlow
+import com.bsk.cointracker.util.hide
+import com.bsk.cointracker.util.show
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
+class CoinDetailFragment : RefreshableFragment<FragmentCoinDetailBinding>() {
 
     private val viewModel: CoinViewModel by viewModels()
 
