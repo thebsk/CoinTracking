@@ -1,4 +1,4 @@
-package com.bsk.cointracker.data.remote.repository
+package com.bsk.cointracker.data.firestore.common.repository
 
 import com.bsk.cointracker.data.firestore.common.livedata
 import com.bsk.cointracker.data.remote.entities.Coin

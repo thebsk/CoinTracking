@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bsk.cointracker.data.background.SyncCoinWorkerHelper
+import com.bsk.cointracker.data.firestore.common.repository.CoinFireStoreRepository
 import com.bsk.cointracker.data.remote.common.ApiResult
 import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.data.remote.repository.AuthRepository
-import com.bsk.cointracker.data.remote.repository.CoinFireStoreRepository
 import com.bsk.cointracker.data.remote.repository.CoinRepository
 
 

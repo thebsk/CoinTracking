@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 class CoinRepository @Inject constructor(
     private val dao: CoinDao,
-    private val coinRemoteDataSource: CoinRemoteDataSource
+    private val coinRemoteDataSource: CoinRemoteRemoteDataSource
 ) {
     fun observeCoin(scope: CoroutineScope, id: String) =
         resultLiveData(
