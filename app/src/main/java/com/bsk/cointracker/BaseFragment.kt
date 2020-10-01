@@ -37,9 +37,12 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     abstract fun onViewBind(binding: T)
 
-    protected fun isUserAuthenticated(callback: (Boolean?) -> Unit) {
+    protected fun isUserAuthenticated(autoLogin: Boolean, callback: ((Boolean?) -> Unit)? = null) {
         if (activity !is MainActivity) throw IllegalStateException("Activity must be child of MainActivity.kt")
 
-        (activity as MainActivity).checkIfUserIsAuthenticated(callback)
+        (activity as MainActivity).checkIfUserIsAuthenticated(
+            showLogin = autoLogin,
+            callback = callback
+        )
     }
 }

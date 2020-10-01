@@ -2,7 +2,6 @@ package com.bsk.cointracker
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -11,25 +10,22 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bsk.cointracker.auth.model.AuthViewModel
-import com.bsk.cointracker.auth.model.User
 import com.bsk.cointracker.data.remote.common.ApiResult
 import com.bsk.cointracker.databinding.ActivityMainBinding
 import com.bsk.cointracker.util.Constants
+import com.bsk.cointracker.util.showToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
+class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var firebaseAuth: FirebaseAuth
@@ -48,6 +44,8 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         navController = findNavController(R.id.nav_host_fragment)
 
         navView.setupWithNavController(navController)
+
+        checkIfUserIsAuthenticated(false)
     }
 
     private val googleSignInClient: GoogleSignInClient by lazy {
@@ -65,97 +63,55 @@ class MainActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
             startActivityForResult(it, Constants.REQUEST_CODE_SIGN_IN)
         }
 
-    fun checkIfUserIsAuthenticated(callback: (Boolean?) -> Unit) {
+    fun checkIfUserIsAuthenticated(showLogin: Boolean, callback: ((Boolean?) -> Unit)? = null) {
         loginCallback = callback
-        authViewModel.checkIfUserIsAuthenticated().observe(this, Observer { user ->
-            if (!user.isAuthenticated) {
+        authViewModel.checkIfUserIsAuthenticated2().observe(this, Observer {
+            if (it) {
+                loginSucceeded()
+                return@Observer
+            }
+
+            if (showLogin) {
                 signIn()
-            } else {
-                getUserFromDatabase(user.uid)
+                return@Observer
             }
+
+            loginCallback?.invoke(false)
         })
     }
 
-    private fun getUserFromDatabase(uid: String) {
-        authViewModel.setUid(uid).observe(this, Observer {
+    private fun signInWithGoogleAuthToken(idToken: String) {
+        authViewModel.signInWithGoogle2(idToken).observe(this, Observer {
             if (it.status == ApiResult.Status.SUCCESS) {
-                loginCallback?.invoke(true)
+                loginSucceeded()
+                showToast(getString(R.string.message_login_success))
             } else if (it.status == ApiResult.Status.ERROR) {
-                loginError(it.message)
+                loginFailed(it.message)
             }
         })
     }
 
-    private fun loginError(message: String?) {
+    private fun loginSucceeded() {
+        loginCallback?.invoke(true)
+    }
+
+    private fun loginFailed(message: String?) {
+        Timber.e(message)
         loginCallback?.invoke(null)
         loginCallback = null
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
-    private fun getGoogleAuthCredential(googleSignInAccount: GoogleSignInAccount) {
-        googleSignInAccount.idToken.run {
-            GoogleAuthProvider.getCredential(this, null)
-        }.let {
-            signInWithGoogleAuthCredential(it)
-        }
-    }
-
-    private fun signInWithGoogleAuthCredential(googleAuthCredential: AuthCredential) {
-        authViewModel.signInWithGoogle(googleAuthCredential).observe(this, Observer {
-            if (it.status == ApiResult.Status.SUCCESS) {
-                val authenticatedUser = it.data
-                if (authenticatedUser?.isNew == true) {
-                    createNewUser(authenticatedUser)
-                } else {
-                    loginCallback?.invoke(true)
-                }
-            } else if (it.status == ApiResult.Status.ERROR) {
-                loginError(it.message)
-            }
-        })
-    }
-
-    private fun createNewUser(authenticatedUser: User) {
-        authViewModel.createUser(authenticatedUser).observe(this, Observer {
-            if (it.status == ApiResult.Status.SUCCESS) {
-                loginCallback?.invoke(true)
-            } else if (it.status == ApiResult.Status.ERROR) {
-                loginError(it.message)
-            }
-        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Constants.REQUEST_CODE_SIGN_IN) {
-            val task =
-                GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val googleSignInAccount = task.getResult(
-                    ApiException::class.java
-                )
-                googleSignInAccount?.let { getGoogleAuthCredential(it) }
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                val result = task.getResult(ApiException::class.java)!!
+                signInWithGoogleAuthToken(result.idToken!!)
             } catch (e: ApiException) {
-                loginError(e.message)
+                loginFailed(e.message)
                 Timber.e(e)
             }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        firebaseAuth.addAuthStateListener(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        firebaseAuth.removeAuthStateListener(this)
-    }
-
-    override fun onAuthStateChanged(p0: FirebaseAuth) {
-        firebaseAuth.currentUser ?: run {
-            firebaseAuth.signOut()
-            googleSignInClient.signOut()
         }
     }
 }

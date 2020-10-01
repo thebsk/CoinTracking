@@ -32,8 +32,9 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
         }
 
         imgFavorite.setOnClickListener { v ->
-            isUserAuthenticated {
+            isUserAuthenticated(true) {
                 if (it != true) return@isUserAuthenticated
+                subscribeFavoriteCoin(args.coinId, this)
 
                 if (v.isSelected) {
                     viewModel.removeCoin(coin!!)
@@ -43,10 +44,23 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
             }
         }
 
-        subscribeUi(this)
+        subscribeCoinDetail(this)
+        isUserAuthenticated(false) {
+            subscribeFavoriteCoin(args.coinId, this)
+        }
     }
 
-    private fun subscribeUi(binding: FragmentCoinDetailBinding) = with(binding) {
+    private fun subscribeFavoriteCoin(coinId: String, binding: FragmentCoinDetailBinding) =
+        with(binding) {
+            viewModel.coinById(coinId).observe(viewLifecycleOwner, Observer {
+                val isFavCharacter = it.isNotEmpty()
+                imgFavorite.apply {
+                    isSelected = isFavCharacter
+                }
+            })
+        }
+
+    private fun subscribeCoinDetail(binding: FragmentCoinDetailBinding) = with(binding) {
         viewModel.coin.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 ApiResult.Status.SUCCESS -> {
@@ -60,14 +74,5 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>() {
                 }
             }
         })
-        isUserAuthenticated {
-            if (it != true) return@isUserAuthenticated
-            viewModel.coinById(args.coinId).observe(viewLifecycleOwner, Observer {
-                val isFavCharacter = it.isNotEmpty()
-                imgFavorite.apply {
-                    isSelected = isFavCharacter
-                }
-            })
-        }
     }
 }

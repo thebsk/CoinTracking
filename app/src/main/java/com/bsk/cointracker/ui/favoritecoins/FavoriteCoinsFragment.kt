@@ -27,11 +27,17 @@ class FavoriteCoinsFragment : BaseFragment<FragmentFavoriteCoinsBinding>() {
     }
 
     private fun subscribeUi(binding: FragmentFavoriteCoinsBinding) = with(binding) {
-        favoriteCoinsViewModel.favoriteCoins.observe(viewLifecycleOwner, Observer {
-            showPlaceHolder = it.isEmpty()
-            (rvFavoriteCoins.adapter as FavoriteCoinsAdapter).submitList(it)
-            rvFavoriteCoins.scheduleLayoutAnimation()
-        })
+        isUserAuthenticated(false) { result ->
+            if (result != true) {
+                showPlaceHolder = true
+                return@isUserAuthenticated
+            }
+            favoriteCoinsViewModel.favoriteCoins.observe(viewLifecycleOwner, Observer {
+                showPlaceHolder = it.isEmpty()
+                (rvFavoriteCoins.adapter as FavoriteCoinsAdapter).submitList(it)
+                rvFavoriteCoins.scheduleLayoutAnimation()
+            })
+        }
     }
 
     private val coinAdapter by lazy {
