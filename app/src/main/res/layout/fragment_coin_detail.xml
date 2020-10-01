@@ -10,10 +10,6 @@
         <variable
             name="coin"
             type="com.bsk.cointracker.data.remote.entities.Coin" />
-
-        <variable
-            name="coin"
-            type="com.bsk.cointracker.data.remote.entities.Coin" />
     </data>
 
     <FrameLayout
