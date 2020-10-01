@@ -19,6 +19,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
 
@@ -49,6 +51,10 @@ class CoinListFragment : BaseFragment<FragmentCoinsBinding>() {
         lifecycleScope.launch {
             searchView.onTextChangedFlow()
                 .debounce(400)
+                .filter {
+                    !it.isNullOrEmpty()
+                }
+                .distinctUntilChanged()
                 .collect {
                     it?.let {
                         subscribeSearchUI(binding = this@with, query = it, adapter = adapter)
