@@ -22,14 +22,15 @@ class CoinViewModel @ViewModelInject constructor(
     }
 
     fun coinById(coinId: String) =
-        fireStoreRepository.getFavoriteCoinById(coinId, authRepository.user.uid)
+        fireStoreRepository.getFavoriteCoinById(coinId, authRepository.user?.uid ?: "")
 
     fun saveCoin(coin: Coin) =
         coin.apply {
-            userId = authRepository.user.uid
+            userId = authRepository.user!!.uid
         }.let {
             fireStoreRepository.saveFavoriteCoin(it)
         }
 
-    fun removeCoin(coin: Coin) = fireStoreRepository.deleteCoin(coin, authRepository.user.uid)
+    fun removeCoin(coin: Coin) =
+        fireStoreRepository.deleteCoin(coin, authRepository.user!!.uid)
 }

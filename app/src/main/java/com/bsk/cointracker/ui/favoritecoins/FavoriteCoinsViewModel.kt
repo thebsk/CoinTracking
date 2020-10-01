@@ -11,5 +11,6 @@ class FavoriteCoinsViewModel @ViewModelInject constructor(
     authRepository: AuthRepository
 ) : ViewModel() {
 
-    val favoriteCoins = repository.getFavoriteCoins(authRepository.user.uid)
+    val favoriteCoins =
+        repository.getFavoriteCoins(authRepository.user!!.uid)
 }
