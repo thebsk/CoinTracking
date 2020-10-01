@@ -17,7 +17,7 @@ interface CoinDao {
     @Query("SELECT * FROM coins WHERE id = :id")
     fun getCoin(id: String): LiveData<Coin>
 
-    @Query("SELECT * FROM coins WHERE name LIKE '%' || :query || '%' OR symbol LIKE '%' || :query || '%'")
+    @Query("SELECT * FROM coins WHERE name LIKE '%' || :query || '%' OR symbol LIKE '%' || :query || '%' ORDER BY name DESC")
     fun searchCoin(query: String): LiveData<List<Coin>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
