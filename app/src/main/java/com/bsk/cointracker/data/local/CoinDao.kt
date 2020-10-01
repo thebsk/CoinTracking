@@ -11,13 +11,13 @@ import com.bsk.cointracker.data.remote.entities.Coin
 @Dao
 interface CoinDao {
 
-    @Query("SELECT * FROM coins ORDER BY name DESC")
+    @Query("SELECT * FROM coins ORDER BY name ASC")
     fun getCoins(): LiveData<List<Coin>>
 
     @Query("SELECT * FROM coins WHERE id = :id")
     fun getCoin(id: String): LiveData<Coin>
 
-    @Query("SELECT * FROM coins WHERE name LIKE '%' || :query || '%' OR symbol LIKE '%' || :query || '%' ORDER BY name DESC")
+    @Query("SELECT * FROM coins WHERE name LIKE '%' || :query || '%' OR symbol LIKE '%' || :query || '%' ORDER BY name ASC")
     fun searchCoin(query: String): LiveData<List<Coin>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
