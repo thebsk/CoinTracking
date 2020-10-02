@@ -51,15 +51,15 @@
                         android:layout_weight="1">
 
                         <soup.neumorphism.NeumorphCardView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
                             android:layout_gravity="center"
                             app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
                             app:neumorph_shapeType="flat">
 
                             <soup.neumorphism.NeumorphImageView
-                                android:layout_width="200dp"
-                                android:layout_height="200dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:layout_margin="2dp"
                                 android:adjustViewBounds="true"
