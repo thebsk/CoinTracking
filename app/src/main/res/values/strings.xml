@@ -1,17 +1,24 @@
 <resources>
     <string name="app_name">CoinTracker</string>
+
+    <!--Image descriptions-->
+    <string name="desc_coin_image">Coin Image</string>
+    <string name="desc_back_image">Back button</string>
+
+    <!--Titles-->
     <string name="title_coins">All Coins</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_favorite_coins">Favorite Coins</string>
     <string name="title_coin_detail">Coin Detail</string>
     <string name="title_favorite">Favorite</string>
-    <string name="desc_coin_image">Coin Image</string>
-    <string name="desc_back_image">Back button</string>
+
+    <!--Messages-->
     <string name="message_no_favorites">Favorite coin not added yet</string>
     <string name="message_login_success">Login succeeded!</string>
-    <string name="coin_data_available">New price!</string>
     <string name="message_notification_on">I will notify you if the price changes</string>
     <string name="message_favorite_delete">%s removed from favorites</string>
-    <string name="message_timer_on">\"Timer is set to (minutes): \"</string>
-    <string name="message_timer_off">\"Set refresh interval in minutes: \"</string>
+    <string name="message_timer_on">Timer is set to (minutes): </string>
+    <string name="message_timer_off">Set refresh interval in minutes: </string>
+    <string name="coin_data_available">New price!</string>
+    <string name="message_coin_desc">Coin description not available</string>
 </resources>

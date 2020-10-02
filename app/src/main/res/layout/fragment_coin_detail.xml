@@ -29,6 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
                     android:layout_weight="0"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/desc_coin_image"
@@ -48,7 +49,7 @@
                     android:gravity="center"
                     android:text="@{coin.price + ` TRY`}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                    android:visibility="@{coin.price == null ? View.GONE : View.VISIBLE}"
+                    android:visibility='@{coin.price == null || coin.price == "" ? View.GONE : View.VISIBLE}'
                     app:layout_constraintEnd_toStartOf="@+id/textView2"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/textView2"
@@ -59,10 +60,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp">
+                    android:paddingHorizontal="16dp">
 
                     <TextView
                         android:id="@+id/tv_timer_desc"
@@ -70,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:drawablePadding="12dp"
                         android:gravity="center"
-                        android:text="Refresh interval in minutes: "
+                        android:text="@string/message_timer_off"
                         app:drawableStartCompat="@drawable/ic_timer" />
 
                     <EditText
@@ -95,7 +96,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="@{coin.marketData.priceChangePercentage24H == null ? View.GONE : View.VISIBLE}">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -113,7 +115,6 @@
                             android:text="@{coin.marketData.priceChangePercentage24H + ` %`}"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                             android:textStyle="bold"
-                            android:visibility="@{coin.marketData.priceChangePercentage24H == null ? View.GONE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -143,7 +144,6 @@
                             android:text="@{coin.hashingAlgorithm}"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                             android:textStyle="bold"
-                            android:visibility="@{coin.marketData.priceChangePercentage24H == null ? View.GONE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -165,12 +165,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="@{coin.desc}"
+                    android:text="@{coin.desc == null ? @string/message_coin_desc : coin.desc}"
                     android:textSize="@dimen/txt_coin_description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView"
-                    tools:text="@tools:sample/lorem" />
+                    tools:text="@string/message_coin_desc" />
             </LinearLayout>
         </ScrollView>
 
