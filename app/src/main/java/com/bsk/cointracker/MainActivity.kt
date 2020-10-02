@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.bsk.cointracker.auth.model.AuthViewModel
+import com.bsk.cointracker.auth.AuthViewModel
 import com.bsk.cointracker.data.remote.common.ApiResult
 import com.bsk.cointracker.databinding.ActivityMainBinding
 import com.bsk.cointracker.util.Constants

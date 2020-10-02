@@ -1,4 +1,4 @@
-package com.bsk.cointracker.data.firestore.common.repository
+package com.bsk.cointracker.data.firestore.repository
 
 import com.bsk.cointracker.data.remote.entities.Coin
 import com.bsk.cointracker.di.qualifiers.CoroutineScopeIO

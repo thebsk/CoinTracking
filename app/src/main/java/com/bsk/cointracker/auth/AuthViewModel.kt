@@ -1,4 +1,4 @@
-package com.bsk.cointracker.auth.model
+package com.bsk.cointracker.auth
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
