@@ -33,6 +33,7 @@ class SyncCoinWorkerHelper @Inject constructor(
                 PeriodicWorkRequest.MIN_BACKOFF_MILLIS,
                 TimeUnit.MILLISECONDS
             )
+            .setInitialDelay(WORK_TIME_INTERVAL, TimeUnit.MINUTES)
             .setInputData(createInputDataForCoin(coin))
             .build()
 

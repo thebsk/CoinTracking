@@ -34,15 +34,19 @@ class SyncCoinWorker @WorkerInject constructor(
             val response = service.getCoin(coinId!!)
 
             if (response.isSuccessful && response.body() != null) {
-                val message = applicationContext.getString(R.string.coin_data_available).apply {
-                    if (!coinPrice.isNullOrEmpty()) plus(" old price: $coinPrice")
-                    if (response.body()!!.price.isNotEmpty()) plus(", new price: : $coinPrice")
+                val newPrice = response.body()!!.price
+
+                var message = applicationContext.getString(R.string.coin_data_available)
+                if (!coinPrice.isNullOrEmpty()) message += " old price: $coinPrice TRY"
+                if (newPrice.isNotEmpty()) message += ", new price: : $newPrice TRY"
+
+                if (coinPrice != newPrice) {
+                    makeStatusNotification(
+                        coinName ?: "Coin Price",
+                        message,
+                        applicationContext
+                    )
                 }
-                makeStatusNotification(
-                    coinName ?: "Coin Price",
-                    message,
-                    applicationContext
-                )
                 Result.success()
             } else {
                 Result.retry()
