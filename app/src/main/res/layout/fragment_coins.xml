@@ -8,18 +8,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <SearchView
-            android:id="@+id/searchView"
+        <soup.neumorphism.NeumorphCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:queryHint="Search Coin"
-            android:iconifiedByDefault="false" />
+            app:neumorph_shapeType="flat">
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@null"
+                android:queryHint="Search Coin" />
+        </soup.neumorphism.NeumorphCardView>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="12dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

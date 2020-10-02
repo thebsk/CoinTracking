@@ -10,61 +10,73 @@
             type="com.bsk.cointracker.data.remote.entities.Coin" />
     </data>
 
-    <LinearLayout
+    <soup.neumorphism.NeumorphCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/bg_coin_symbol"
-            android:contentDescription="@string/desc_coin_image"
-            android:padding="2dp"
-            app:centerCrop="@{true}"
-            app:circularCrop="@{true}"
-            app:imageUrl="@{item.largeImage}" />
+        app:neumorph_shadowElevation="4dp"
+        app:neumorph_shapeType="pressed">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:foreground="?attr/selectableItemBackground"
-            android:orientation="vertical"
-            android:paddingHorizontal="4dp"
-            android:paddingVertical="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal">
 
-            <TextView
+            <soup.neumorphism.NeumorphCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                app:neumorph_shapeType="pressed">
+
+                <soup.neumorphism.NeumorphImageView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/desc_coin_image"
+                    app:centerCrop="@{true}"
+                    app:circularCrop="@{true}"
+                    app:imageUrl="@{item.largeImage}" />
+            </soup.neumorphism.NeumorphCardView>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:lines="1"
+                android:orientation="vertical"
                 android:paddingHorizontal="4dp"
-                android:text="@{item.symbol}"
-                android:textAllCaps="true"
-                android:textAppearance="?attr/textAppearanceSearchResultTitle"
-                app:autoSizeMaxTextSize="18sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="2sp"
-                app:autoSizeTextType="uniform"
-                tools:text="usdthalf" />
+                android:layout_gravity="center"
+                android:paddingVertical="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView3"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:ellipsize="end"
-                android:gravity="center|start"
-                android:paddingHorizontal="4dp"
-                android:text="@{item.name}"
-                android:textAppearance="?attr/textAppearanceSearchResultSubtitle"
-                tools:text="Tree House" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:lines="1"
+                    android:paddingHorizontal="4dp"
+                    android:text="@{item.symbol}"
+                    android:textAllCaps="true"
+                    android:textAppearance="?attr/textAppearanceSearchResultTitle"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform"
+                    tools:text="usdthalf" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:ellipsize="end"
+                    android:gravity="center|start"
+                    android:paddingHorizontal="4dp"
+                    android:text="@{item.name}"
+                    android:textAppearance="?attr/textAppearanceSearchResultSubtitle"
+                    tools:text="Tree House" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </soup.neumorphism.NeumorphCardView>
 </layout>
