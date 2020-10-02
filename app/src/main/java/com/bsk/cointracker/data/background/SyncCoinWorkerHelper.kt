@@ -37,14 +37,14 @@ class SyncCoinWorkerHelper @Inject constructor(
             .build()
 
         workManager.enqueueUniquePeriodicWork(
-            Constants.WORK_NAME_SYNC_COIN,
+            coin.id,
             ExistingPeriodicWorkPolicy.KEEP,
             periodicSyncDataWork
         )
     }
 
     fun cancelWork(coin: Coin) {
-        workManager.cancelAllWorkByTag(coin.id)
+        workManager.cancelUniqueWork(coin.id)
     }
 
     companion object {

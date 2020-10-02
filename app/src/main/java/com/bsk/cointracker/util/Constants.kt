@@ -1,9 +1,6 @@
 package com.bsk.cointracker.util
 
 object Constants {
-    // Worker names
-    const val WORK_NAME_SYNC_COIN = "workSyncCoin"
-
     // Keys
     const val KEY_COINS = "coins"
     const val KEY_ID = "id"
