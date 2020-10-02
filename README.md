@@ -20,10 +20,7 @@ CoinTracker is a sample application getting data from Crypto Currency API - Coin
 <img src="/previews/SS6.png" width="20%"/>
 </p>
 
-
 ## Tech stack & Open-source libraries
-
-<img src="/previews/preview.gif" align="right" width="25%"/>
 
 - Minimum SDK level 21
 - [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
