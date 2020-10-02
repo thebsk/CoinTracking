@@ -12,11 +12,13 @@ import com.bsk.cointracker.databinding.FragmentCoinDetailBinding
 import com.bsk.cointracker.util.afterTextChangedFlow
 import com.bsk.cointracker.util.hide
 import com.bsk.cointracker.util.show
+import com.bsk.cointracker.util.showToast
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -44,8 +46,15 @@ class CoinDetailFragment : RefreshableFragment<FragmentCoinDetailBinding>() {
 
                 if (v.isSelected) {
                     viewModel.removeCoin(coin!!)
+                    requireContext().showToast(
+                        resources.getString(
+                            R.string.message_favorite_delete,
+                            coin!!.symbol?.toUpperCase(Locale.ROOT)
+                        )
+                    )
                 } else {
                     viewModel.saveCoin(coin!!)
+                    requireContext().showToast(resources.getString(R.string.message_notification_on))
                 }
             }
         }
@@ -55,8 +64,13 @@ class CoinDetailFragment : RefreshableFragment<FragmentCoinDetailBinding>() {
                 .collect {
                     tvTimerDesc.apply {
                         isSelected = !it.isNullOrEmpty()
-                        text =
-                            if (!it.isNullOrEmpty()) "Timer is set to (minutes): " else "Set refresh interval in minutes: "
+                        text = context.getString(
+                            if (!it.isNullOrEmpty()) {
+                                R.string.message_timer_on
+                            } else {
+                                R.string.message_timer_off
+                            }
+                        )
                     }
                     val time = if (it.isNullOrEmpty()) null else it.toString().toInt()
                     setTimerInterval(time)
