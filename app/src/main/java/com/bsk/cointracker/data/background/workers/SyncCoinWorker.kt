@@ -23,17 +23,24 @@ class SyncCoinWorker @WorkerInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result = withContext(scope.coroutineContext) {
-        val coinId = inputData.getString(Constants.KEY_COIN_ID)!!
-        val coinName = inputData.getString(Constants.KEY_COIN_NAME)!!
+        val coinId = inputData.getString(Constants.KEY_COIN_ID)
+        val coinName = inputData.getString(Constants.KEY_COIN_NAME)
+        val coinPrice = inputData.getString(Constants.KEY_COIN_PRICE)
 
         return@withContext try {
 
-            val response = service.getCoin(coinId)
+            coinId ?: Result.failure()
+
+            val response = service.getCoin(coinId!!)
 
             if (response.isSuccessful && response.body() != null) {
+                val message = applicationContext.getString(R.string.coin_data_available).apply {
+                    if (!coinPrice.isNullOrEmpty()) plus(" old price: $coinPrice")
+                    if (response.body()!!.price.isNotEmpty()) plus(", new price: : $coinPrice")
+                }
                 makeStatusNotification(
-                    coinName,
-                    applicationContext.getString(R.string.coin_data_available) + " ${response.body()!!.price}",
+                    coinName ?: "Coin Price",
+                    message,
                     applicationContext
                 )
                 Result.success()

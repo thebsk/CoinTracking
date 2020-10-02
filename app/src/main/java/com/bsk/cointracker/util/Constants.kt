@@ -10,6 +10,7 @@ object Constants {
     const val KEY_USER_ID = "userId"
     const val KEY_COIN_ID = "keyCoinId"
     const val KEY_COIN_NAME = "keyCoinName"
+    const val KEY_COIN_PRICE = "keyCoinPrice"
 
     // Request Codes
     const val REQUEST_CODE_SIGN_IN = 111

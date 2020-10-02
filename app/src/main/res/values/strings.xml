@@ -9,5 +9,5 @@
     <string name="desc_back_image">Back button</string>
     <string name="message_no_favorites">Favorite coin not added yet</string>
     <string name="message_login_success">Login succeeded!</string>
-    <string name="coin_data_available">New data available</string>
+    <string name="coin_data_available">New price!</string>
 </resources>

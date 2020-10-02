@@ -15,6 +15,7 @@ class SyncCoinWorkerHelper @Inject constructor(
         Data.Builder().apply {
             putString(Constants.KEY_COIN_ID, coin.id)
             putString(Constants.KEY_COIN_NAME, coin.name)
+            putString(Constants.KEY_COIN_PRICE, coin.price)
         }.build()
 
     fun startWorker(coin: Coin) {
